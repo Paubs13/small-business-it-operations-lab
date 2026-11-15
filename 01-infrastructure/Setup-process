@@ -1,0 +1,19 @@
+I followed the instructions set in the .DOCX:
+
+Windows 11 host machine connected to an Ubuntu Server VM:
+
+1) Created a VM with 4 gigs of RAM and 30 gb of space. Plenty for the project
+
+2) Installed Ubuntu Server using official cannonical's ISO.
+
+3) Configured two Network Adapters. The first one is NAT, it will allow access to internet. The second one is Host-Only,
+   allowing me to connect to the server from Windows using SSH.
+
+4) Created two accounts in the server, sysadmin and employee1. The former without sudo permissions.
+
+5) Configured two static IP addresses for the internal Windows-Server network.
+   192.168.50.1 for Windows, 192.168.50.20 for the Server.
+
+6) Tested ping and SSH connections from Windows (see screenshots in the folder)
+
+7) Wrote down this .MD to explain what i did.
