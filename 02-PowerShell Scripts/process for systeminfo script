@@ -7,3 +7,7 @@ any errors and it worked like a charm.
 I've decided to use AI, because in productive environments it's the norm. I understand the logic of the script, and i believe
 that's what matters most. The only thing that this scripts does is read values, record them in a variable and then output it
 in a readable way. Simple.
+
+After doing the first one, i've decided to add the features to run it on multiple machines remotely, like an IT admin would.
+I don't have a Windows VM machine to test if it works, locally it does. I'll come back to it when i do other troubleshooting
+jobs later down the project.
