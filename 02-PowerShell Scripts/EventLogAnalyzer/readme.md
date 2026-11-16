@@ -1,7 +1,7 @@
 I did the same process than with ServiceHealth. I used it as a model and the AI automatically added the functions i had to manually add last time, so now i just had to review it and test it.
+\
 
-
-Parameters:
+Parameters: \
 -LogName \
 Log names (wildcards allowed)
 
