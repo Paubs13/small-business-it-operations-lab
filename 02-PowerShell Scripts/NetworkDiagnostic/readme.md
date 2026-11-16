@@ -1,6 +1,6 @@
 Same process of the other two. I tested everything except remote execution (yet, i plan to do this later) and it works. Using the code previously done as a framework for the AI to follow seems to do the trick.
 
-Limitations: \
+*Limitations:*
 - Windows only; not tested on non-Windows PowerShell.
 - A failed ping does not mean a host is down: ICMP is often blocked. Use the TCP results to confirm.
 - A TimedOut TCP result cannot distinguish a firewall drop from an offline host.
@@ -10,7 +10,7 @@ Limitations: \
 - It tests connectivity only; it does not scan ports, change adapter settings or repair anything.
 - Text mode shows IPv4 addresses only; IPv6 addresses and the prefix length are in the object / JSON output.
 
-Parameters: \
+*Parameters:*
 -Target	\
 Hosts / IPs to resolve, ping and test. Default is www.microsoft.com, one.one.one.one \
 
