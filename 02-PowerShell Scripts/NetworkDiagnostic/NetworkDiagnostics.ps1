@@ -378,8 +378,8 @@ function ConvertTo-TextReport {
     [void]$sb.AppendLine(($Report.Gateways | Format-Table -AutoSize | Out-String -Width 200).TrimEnd())
 
     [void]$sb.AppendLine("`n== DNS resolution ==")
-    [void]$sb.AppendLine(($Report.DnsLookups | Select-Object Name, Resolved, ElapsedMs,
-        @{ n = 'Addresses'; e = { & $join $_.Addresses } }, Error | Format-Table -AutoSize | Out-String -Width 200).TrimEnd())
+    [void]$sb.AppendLine(($Report.DnsLookups | Select-Object Name, Error, Resolved, ElapsedMs,
+        @{ n = 'Addresses'; e = { & $join $_.Addresses } } | Format-Table -AutoSize | Out-String -Width 200).TrimEnd())
 
     [void]$sb.AppendLine("`n== Host reachability (ICMP) ==")
     [void]$sb.AppendLine(($Report.Reachability | Format-Table -AutoSize | Out-String -Width 200).TrimEnd())
