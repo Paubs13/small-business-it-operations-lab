@@ -2,31 +2,7 @@ I used the same process as SystemInfo, so i just reviewed and tested the AI-gene
 
 Also this code has a couple of flags that can be used when executed on the Shell.
 
--ExportCSVPath C:\desiredpath\filename.csv
-The output will always be only on the shell if you don't use this flag.
-
--ComputerName ComputerNameHere
-To run on a remote computer. If not used, it will automatically be done locally.
-
--ServiceName ServiceNameHere
-To search for a specific service. It automatically will list all if not used.
-
--ProblemsOnly
-Will return only the services on state "AutoButStopped".
-
--StartStoppedAutoServices
-Tries to start AutoButStopped services. If not executed with elevated permissions, it won't be performed.
-
--ShowSummary
-Shows a colored summary on the console, additionally of the objects.
-
--Verbose
-Shows what the script is doing.
-
--WhatIf / -Confirm
-Safety switches for the start of the operation.
-
-Limitations:
+Limitations: \
 - Windows only.
 - AutoButStopped is not always a fault. Some Automatic services run a task and exit, or are trigger-start services that Windows starts on demand. The Note column flags these where it can, but check.
 - Trigger-start detection is local only (it reads the local registry). For remote computers IsTriggerStart is empty.
@@ -35,3 +11,29 @@ Limitations:
 - Kernel and file-system drivers are not included, only Win32 services.
 - The summary uses Write-Host, so it appears on the console only and is printed before the table.
 - The CSV export contains the objects returned by the script, after -ProblemsOnly is applied.
+
+Parameters: \
+
+-ExportCSVPath C:\desiredpath\filename.csv \
+The output will always be only on the shell if you don't use this flag.
+
+-ComputerName ComputerNameHere \
+To run on a remote computer. If not used, it will automatically be done locally.
+
+-ServiceName ServiceNameHere \
+To search for a specific service. It automatically will list all if not used.
+
+-ProblemsOnly \
+Will return only the services on state "AutoButStopped".
+
+-StartStoppedAutoServices \
+Tries to start AutoButStopped services. If not executed with elevated permissions, it won't be performed.
+
+-ShowSummary \
+Shows a colored summary on the console, additionally of the objects.
+
+-Verbose \
+Shows what the script is doing.
+
+-WhatIf / -Confirm \
+Safety switches for the start of the operation.
