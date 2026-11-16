@@ -1,4 +1,3 @@
-#Requires -Version 5.1
 <#
 .SYNOPSIS
     Finds Critical and Error events in Windows Event Logs within a configurable time range.
