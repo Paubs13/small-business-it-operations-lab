@@ -2,7 +2,7 @@ I used the same process as SystemInfo, so i just reviewed and tested the AI-gene
 
 Also this code has a couple of flags that can be used when executed on the Shell.
 
-Limitations: \
+Limitations:
 - Windows only.
 - AutoButStopped is not always a fault. Some Automatic services run a task and exit, or are trigger-start services that Windows starts on demand. The Note column flags these where it can, but check.
 - Trigger-start detection is local only (it reads the local registry). For remote computers IsTriggerStart is empty.
@@ -12,7 +12,7 @@ Limitations: \
 - The summary uses Write-Host, so it appears on the console only and is printed before the table.
 - The CSV export contains the objects returned by the script, after -ProblemsOnly is applied.
 
-Parameters: \
+Parameters:
 
 -ExportCSVPath C:\desiredpath\filename.csv \
 The output will always be only on the shell if you don't use this flag.
