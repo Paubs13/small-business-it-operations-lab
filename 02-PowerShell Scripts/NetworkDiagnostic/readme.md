@@ -18,25 +18,25 @@ Hosts / IPs to resolve, ping and test. Default is www.microsoft.com, one.one.one
 TCP ports (1-65535) tested on every target. Default is 80 and 443.
 
 -TimeoutMs \
-Timeout per ping / TCP attempt (100-60000). Default is 2000ms. \
+Timeout per ping / TCP attempt (100-60000). Default is 2000ms.
 
 -PingCount	\
-Echo requests per host (1-10). Default is 2. \
+Echo requests per host (1-10). Default is 2.
 
 -IncludeDisconnected	\
-Also list adapters that are not Up. It's off by default. \
+Also list adapters that are not Up. It's off by default.
 
 -TestDnsServerPort	\
-Also test TCP/53 on each configured DNS server. It's off by default. \
+Also test TCP/53 on each configured DNS server. It's off by default.
 
 -FlushDnsCache	\
-Clear DNS client cache first. It's off by default and requires elevated permissions. \
+Clear DNS client cache first. It's off by default and requires elevated permissions.
 
 -OutputFormat	\
-Object, Json or Text. Default is object. \
+Object, Json or Text. Default is object.
 
 -Path \
- Save the report to a file. By default it does not. \
+ Save the report to a file. By default it does not.
 
 -WhatIf / -Confirm		\
-Standard safety switches for the flush. \
+Standard safety switches for the flush.
