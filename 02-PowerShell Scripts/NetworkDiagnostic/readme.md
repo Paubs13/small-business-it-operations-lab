@@ -10,7 +10,8 @@ Same process of the other two. I tested everything except remote execution (yet,
 - It tests connectivity only; it does not scan ports, change adapter settings or repair anything.
 - Text mode shows IPv4 addresses only; IPv6 addresses and the prefix length are in the object / JSON output.
 
-*Parameters:* \
+*Parameters:*
+
 -Target	\
 Hosts / IPs to resolve, ping and test. Default is www.microsoft.com, one.one.one.one
 
