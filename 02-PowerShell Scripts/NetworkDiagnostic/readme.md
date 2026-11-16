@@ -12,10 +12,10 @@ Same process of the other two. I tested everything except remote execution (yet,
 
 *Parameters:* \
 -Target	\
-Hosts / IPs to resolve, ping and test. Default is www.microsoft.com, one.one.one.one \
+Hosts / IPs to resolve, ping and test. Default is www.microsoft.com, one.one.one.one
 
 -Port \	
-TCP ports (1-65535) tested on every target. Default is 80 and 443. \
+TCP ports (1-65535) tested on every target. Default is 80 and 443.
 
 -TimeoutMs \
 Timeout per ping / TCP attempt (100-60000). Default is 2000ms. \
