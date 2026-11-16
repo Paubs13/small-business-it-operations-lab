@@ -1,5 +1,12 @@
 I did the same process than with ServiceHealth. I used it as a model and the AI automatically added the functions i had to manually add last time, so now i just had to review it and test it.
 
+Limitations: \
+- Windows only.
+- Messages come from the source's registered message DLLs. If they are missing, the message shows a placeholder.
+- -MaxEvents applies per log during the query and again to the combined, sorted result.
+- Very large ranges on busy logs can be slow; narrow the range or add -EventId / -ProviderName.
+- Timestamps are in the time zone of the machine running the script (for remote queries, converted by PowerShell on your machine).
+- Remote queries depend on network, firewall and DCOM/RPC configuration that this script cannot change.
 
 Parameters: \
 -LogName \
