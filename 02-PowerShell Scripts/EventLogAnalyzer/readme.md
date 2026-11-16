@@ -2,38 +2,38 @@ I did the same process than with ServiceHealth. I used it as a model and the AI 
 
 
 Parameters:
--LogName
+-LogName .
 Log names (wildcards allowed)
 
--HoursBack
+-HoursBack .
 Look back N hours (1-8760)
 
--StartTime / -EndTime
+-StartTime / -EndTime .
 Absolute range (alternative to -HoursBack)
 
--Level
+-Level .
 Critical, Error, or both
 
--EventId
+-EventId .
 Only these event IDs
 
--ProviderName
+-ProviderName .
 Only these sources
   
--MaxEvents
+-MaxEvents .
 Maximum events returned (newest first)
 
--ComputerName, -Credential
+-ComputerName, -Credential .
 Query a remote machine
 
--MessageMaxLength
+-MessageMaxLength .
 Truncate messages (0 = no truncation)
   
--ExportPath
+-ExportPath .
 Write results to .csv or .json
   
--Force
+-Force .
 Overwrite the export file without asking
 
--WhatIf / -Confirm
+-WhatIf / -Confirm .
 Preview or confirm the export write
