@@ -1,4 +1,5 @@
 Same process of the other two. I tested everything except remote execution (yet, i plan to do this later) and it works. Using the code previously done as a framework for the AI to follow seems to do the trick.
+Update1: I just found a little bug when you output text. The table in DNS resolution didn't seem right because "error" wasn't on the right place on the pipeline. Now it's fixed.
 
 *Limitations:*
 - Windows only; not tested on non-Windows PowerShell.
