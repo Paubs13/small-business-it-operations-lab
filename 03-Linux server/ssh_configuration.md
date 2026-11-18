@@ -7,3 +7,6 @@ It was pretty easy.
    I had to retort to this because PowerShell doesn't have the convenient "ssh-copy-id" command.
 5. I inputed the sysadmin's password when prompted.
 6. Done. I logged in correctly using: ssh sysadmin@192.168.50.20
+7. I tested that SSH is using the key to login, without using password:
+   ssh -o PubkeyAuthentication=yes -o PasswordAuthentication=no -i $env:USERPROFILE\.ssh\id_ed25519 sysadmin@192.168.50.20
+8. The login was successful. I see no reason to disable password authentication. So SSH setup ends here.
