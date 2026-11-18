@@ -1,7 +1,7 @@
-*Purpose*:
+*Purpose*: \
 Collects hardware, serial number, OS, disk and installed-software inventory from the local computer (or remote Windows computers) and exports it to CSV. Every collector returns structured PowerShell objects; the CSV files are just one rendering of those objects.
 
-*Process*:
+*Process*: \
 Same process as the other ones. It had an error on the output at first. The $Notes list started empty, and PowerShell refuses to bind an empty collection to a Mandatory parameter unless it’s marked AllowEmptyCollection. Because that error was caught by the outer try/catch, every collector failed before it ran. To solve it i added that attribute to all five functions that take $Notes.
 
 *Limitations:*
