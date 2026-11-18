@@ -14,5 +14,5 @@ I've decided to only allow SSH from my subnet. So, to make this, i did the follo
 2. Check how rules are numbered: sudo ufw status numbered
 3. In my case, the rules i wanted to delete were 1 and 4, So, we delete from highest number to lowest: \
    sudo ufw 4 \
-   sudo ufw 1 \
+   sudo ufw 1
 4. Check that the rules are ok. See screenshot: sudo ufw status verbose
