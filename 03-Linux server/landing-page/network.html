@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Network reference | Northstar Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="code.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">NS</span>
+        <span>Northstar Solutions<small>Internal IT Portal</small></span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="status.html">Server status</a>
+        <a href="helpdesk.html">Help desk</a>
+        <a href="network.html">Network</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-head">
+      <div class="wrap">
+        <p class="eyebrow">Reference</p>
+        <h1>Network reference</h1>
+        <p>
+          How the lab network is laid out and which commands to run first when something cannot be reached.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Topology</h2>
+        <p class="section-intro">
+          Two VirtualBox adapters with separate jobs: NAT gives the server internet access for updates,
+          and Host-only is the private link between the Windows workstation and the server.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Device / interface</th><th>Purpose</th><th>IPv4</th><th>Mask</th><th>Gateway</th></tr></thead>
+            <tbody>
+              <tr><td>Windows host-only adapter</td><td>Workstation on the private network</td><td class="mono">192.168.50.1</td><td class="mono">255.255.255.0</td><td class="muted">none</td></tr>
+              <tr><td>NS-SRV01 host-only (Adapter 2)</td><td>Private link to the workstation</td><td class="mono">192.168.50.20</td><td class="mono">255.255.255.0</td><td class="muted">none</td></tr>
+              <tr><td>NS-SRV01 NAT (Adapter 1)</td><td>Outbound internet and updates</td><td class="muted">DHCP (VirtualBox)</td><td class="muted">DHCP</td><td class="muted">VirtualBox NAT</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice warn">
+          Example addresses only. Replace them with your own sanitized values after checking the real
+          Host-only subnet in VirtualBox. Only the NAT interface has a default gateway.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Firewall rules (UFW)</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Port</th><th>Service</th><th>Allowed source</th><th>Reason</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">22/tcp</td><td>SSH</td><td class="mono">192.168.50.0/24</td><td>Administration from the workstation only</td></tr>
+              <tr><td class="mono">80/tcp</td><td>HTTP (Nginx)</td><td class="mono">192.168.50.0/24</td><td>Internal website</td></tr>
+              <tr><td class="muted">all other</td><td class="muted">-</td><td class="muted">-</td><td>Denied by default</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="codeblock" style="margin-top:1rem">
+          <button class="copy-btn" type="button">Copy</button>
+<pre>sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow from 192.168.50.0/24 to any port 22 proto tcp
+sudo ufw allow from 192.168.50.0/24 to any port 80 proto tcp
+sudo ufw enable
+sudo ufw status verbose</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>First checks: "I can't reach the server"</h2>
+        <p class="section-intro">Work from the bottom up: address, then route, then name, then port, then service.</p>
+
+        <div class="grid grid-2">
+          <div>
+            <h3>From the Windows workstation (PowerShell)</h3>
+            <div class="codeblock">
+              <button class="copy-btn" type="button">Copy</button>
+<pre>Get-NetIPConfiguration
+Test-Connection 192.168.50.20 -Count 4
+Test-NetConnection 192.168.50.20 -Port 80
+Test-NetConnection 192.168.50.20 -Port 22
+Resolve-DnsName example.com
+ssh sysadmin@192.168.50.20</pre>
+            </div>
+          </div>
+          <div>
+            <h3>On NS-SRV01 (Ubuntu)</h3>
+            <div class="codeblock">
+              <button class="copy-btn" type="button">Copy</button>
+<pre>ip -br address
+ip route
+systemctl status nginx
+sudo nginx -t
+sudo ufw status verbose
+sudo ss -tlnp
+sudo tail -n 50 /var/log/nginx/error.log
+journalctl -u nginx --since "10 min ago"</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Common symptoms</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Symptom</th><th>Usually means</th><th>Check</th></tr></thead>
+            <tbody>
+              <tr><td>Connection refused</td><td>Host reachable, but nothing is listening on that port.</td><td><code>systemctl status</code>, <code>ss -tlnp</code></td></tr>
+              <tr><td>Connection times out</td><td>Packets are dropped: firewall, wrong subnet, or host down.</td><td><code>ufw status</code>, IP and mask on both sides</td></tr>
+              <tr><td>Permission denied (SSH)</td><td>Server reached, but credentials or key were rejected.</td><td>User name, key permissions, <code>auth.log</code></td></tr>
+              <tr><td>403 Forbidden (web)</td><td>Nginx cannot read the files.</td><td>File ownership and permissions on the web root</td></tr>
+              <tr><td>404 Not Found (web)</td><td>Nginx is working, but the path does not exist.</td><td>URL, <code>root</code> directive, file names</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>&copy; <span id="footer-year">2026</span> Northstar Solutions. Fictional organization for a portfolio lab project.</span>
+      <span>Served by NS-SRV01 &middot; <span id="footer-host" class="mono"></span></span>
+    </div>
+  </footer>
+
+</body>
+</html>

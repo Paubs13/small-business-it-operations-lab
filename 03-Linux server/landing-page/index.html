@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Northstar Solutions | Internal IT Portal</title>
+  <meta name="description" content="Internal IT portal for Northstar Solutions, served by NS-SRV01.">
+  <link rel="stylesheet" href="style.css">
+  <script src="code.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">NS</span>
+        <span>Northstar Solutions<small>Internal IT Portal</small></span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="status.html">Server status</a>
+        <a href="helpdesk.html">Help desk</a>
+        <a href="network.html">Network</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-head">
+      <div class="wrap">
+        <p class="eyebrow">NS-SRV01 &middot; Ubuntu Server 24.04 LTS &middot; Nginx</p>
+        <h1>Northstar IT Portal</h1>
+        <p>
+          Internal page for Northstar employees. Check whether company systems are running,
+          find out how to report a problem, and look up network details.
+        </p>
+        <div class="btn-row">
+          <a class="btn" href="helpdesk.html">Report an issue</a>
+          <a class="btn btn-secondary" href="status.html">View server status</a>
+        </div>
+
+        <!-- Filled in by code.js from status.json -->
+        <div class="status-strip" aria-live="polite">
+          <div class="status-item">
+            <div class="label">Overall</div>
+            <div class="value" id="overall-status">Checking&hellip;</div>
+          </div>
+          <div class="status-item">
+            <div class="label">Server</div>
+            <div class="value" id="strip-host">-</div>
+          </div>
+          <div class="status-item">
+            <div class="label">Response time</div>
+            <div class="value" id="strip-latency">-</div>
+          </div>
+          <div class="status-item">
+            <div class="label">Last updated</div>
+            <div class="value" id="strip-updated">-</div>
+          </div>
+        </div>
+        <p id="status-error" class="notice warn" hidden></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Where to go</h2>
+        <div class="grid grid-3">
+          <a class="card" href="helpdesk.html">
+            <h3>Help desk</h3>
+            <p class="muted">Ticket categories, priorities, how escalation works, and a form that prepares a ticket for you.</p>
+            <span class="card-link">Open help desk &rarr;</span>
+          </a>
+          <a class="card" href="status.html">
+            <h3>Server status</h3>
+            <p class="muted">Live state of the web server, SSH and firewall on NS-SRV01, plus disk usage and uptime.</p>
+            <span class="card-link">Open status &rarr;</span>
+          </a>
+          <a class="card" href="network.html">
+            <h3>Network reference</h3>
+            <p class="muted">Addressing, adapters, open ports, and common diagnostic commands for Windows and Ubuntu.</p>
+            <span class="card-link">Open reference &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Before you contact IT</h2>
+        <p class="section-intro">These checks solve a large share of problems and give the technician useful information if they do not.</p>
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Can't open an internal page?</h3>
+            <ul>
+              <li>Check that you are connected to the company network.</li>
+              <li>Check the <a href="status.html">server status</a> page. If this page loads, the web server is up.</li>
+              <li>Note the exact address you typed and any error message.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Something else is wrong?</h3>
+            <ul>
+              <li>Write down what you were doing when it happened.</li>
+              <li>Note whether it affects only you or your whole team.</li>
+              <li>Take a screenshot of any error. Do not include passwords.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Services on NS-SRV01</h2>
+        <p class="section-intro">Only the services the company needs are running. Everything else is closed.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Service</th><th>Port</th><th>Purpose</th><th>Allowed from</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Nginx</td><td class="mono">80/tcp</td><td>Internal website (this portal)</td><td>Host-only subnet</td></tr>
+              <tr><td>OpenSSH</td><td class="mono">22/tcp</td><td>Remote administration (key-based login)</td><td>Host-only subnet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Departments we support</h2>
+        <div class="grid grid-3">
+          <div class="card"><h3>Administration</h3><p class="muted">Front office, records, onboarding paperwork.</p></div>
+          <div class="card"><h3>Finance</h3><p class="muted">Accounting, invoicing, payroll data.</p></div>
+          <div class="card"><h3>Operations</h3><p class="muted">Day-to-day delivery and customer work.</p></div>
+          <div class="card"><h3>Management</h3><p class="muted">Planning, approvals, reporting.</p></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>&copy; <span id="footer-year">2026</span> Northstar Solutions. Fictional organization for a portfolio lab project.</span>
+      <span>Served by NS-SRV01 &middot; <span id="footer-host" class="mono"></span></span>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Help desk | Northstar Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="code.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">NS</span>
+        <span>Northstar Solutions<small>Internal IT Portal</small></span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="status.html">Server status</a>
+        <a href="helpdesk.html">Help desk</a>
+        <a href="network.html">Network</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-head">
+      <div class="wrap">
+        <p class="eyebrow">IT service desk</p>
+        <h1>Help desk</h1>
+        <p>
+          How IT problems are received, prioritized and closed at Northstar. Use the form below
+          to prepare a ticket with the information the technician needs.
+        </p>
+      </div>
+    </section>
+
+    <!-- Ticket form -->
+    <section class="section">
+      <div class="wrap">
+        <h2>Prepare a ticket</h2>
+        <p class="section-intro">
+          Fill in the form and a ready-to-use ticket is generated in Markdown. Copy it into
+          <code>04-service-desk/incidents/</code> in the repository (or into GLPI if you set it up).
+          Nothing is sent anywhere. Everything stays in your browser.
+        </p>
+
+        <div class="grid grid-2">
+          <form id="ticket-form" class="card">
+            <div class="field">
+              <label for="summary">Short summary</label>
+              <input id="summary" name="summary" type="text" required placeholder="e.g. Internal website unavailable">
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="user">Employee</label>
+                <input id="user" name="user" type="text" required placeholder="Fictional name">
+              </div>
+              <div class="field">
+                <label for="department">Department</label>
+                <select id="department" name="department">
+                  <option>Administration</option>
+                  <option>Finance</option>
+                  <option>Operations</option>
+                  <option>Management</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="category">Category</label>
+              <select id="category" name="category">
+                <option>Hardware</option>
+                <option>Software</option>
+                <option selected>Network</option>
+                <option>Access</option>
+                <option>Infrastructure</option>
+                <option>Security</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="impact">Impact (how many people / how much work)</label>
+                <select id="impact" name="impact">
+                  <option value="low">Low - one person, workaround exists</option>
+                  <option value="medium" selected>Medium - one team or no workaround</option>
+                  <option value="high">High - company-wide or critical work stopped</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="urgency">Urgency (how soon it must be fixed)</label>
+                <select id="urgency" name="urgency">
+                  <option value="low">Low - can wait days</option>
+                  <option value="medium" selected>Medium - needed today</option>
+                  <option value="high">High - needed now</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="priority-result">
+              <span class="muted">Calculated priority:</span>
+              <span id="priority-badge" class="badge">-</span>
+            </div>
+
+            <div class="field">
+              <label for="description">What happened?</label>
+              <textarea id="description" name="description" placeholder="What were you doing, what did you expect, what happened instead? Include exact error messages."></textarea>
+            </div>
+
+            <button class="btn" type="submit">Generate ticket</button>
+          </form>
+
+          <div class="card" id="ticket-output-wrap" hidden>
+            <h3>Generated ticket</h3>
+            <p class="muted">The internal sections are left blank for the technician. Keep them separate from the message the employee sees.</p>
+            <textarea id="ticket-output" readonly style="min-height:340px; font-family:var(--mono); font-size:.85rem"></textarea>
+            <div class="btn-row">
+              <button class="btn btn-secondary" id="copy-ticket" type="button">Copy to clipboard</button>
+              <button class="btn btn-secondary" id="reset-ticket-counter" type="button">Reset numbering to NS-009</button>
+            </div>
+            <p class="muted" id="counter-msg" style="margin-top:.75rem; font-size:.85rem"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lifecycle -->
+    <section class="section">
+      <div class="wrap">
+        <h2>Ticket lifecycle</h2>
+        <p class="section-intro">Every ticket follows the same path. A ticket is only closed after the fix has been verified.</p>
+        <ol class="steps">
+          <li>New</li>
+          <li>Assigned / In progress</li>
+          <li>Resolved</li>
+          <li>Closed</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Priorities -->
+    <section class="section">
+      <div class="wrap">
+        <h2>Priority levels</h2>
+        <p class="section-intro">Priority comes from business impact and urgency together, not from how annoying the problem is.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Priority</th><th>Meaning</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><span class="badge high">High</span></td>
+                <td>Many users affected or a critical function is stopped, with no workaround.</td>
+                <td>Internal website unavailable for everyone.</td>
+              </tr>
+              <tr>
+                <td><span class="badge medium">Medium</span></td>
+                <td>One team affected, or one user with no workaround.</td>
+                <td>A user cannot open a shared directory.</td>
+              </tr>
+              <tr>
+                <td><span class="badge low">Low</span></td>
+                <td>One user, a workaround exists, or the request can be scheduled.</td>
+                <td>New employee equipment request with a start date next week.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice">
+          The form adds impact and urgency (1 to 3 each): a total of 5-6 is High, 4 is Medium, and 3 or less is Low.
+          A technician may adjust the result once the real situation is understood.
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section">
+      <div class="wrap">
+        <h2>Ticket categories</h2>
+        <div class="grid grid-3">
+          <div class="card"><h3>Hardware</h3><p class="muted">Computers, screens, peripherals, disks.</p></div>
+          <div class="card"><h3>Software</h3><p class="muted">Applications, updates, Windows services.</p></div>
+          <div class="card"><h3>Network</h3><p class="muted">Connectivity, DNS, slow network, unreachable sites.</p></div>
+          <div class="card"><h3>Access</h3><p class="muted">Accounts, permissions, shared folders, onboarding.</p></div>
+          <div class="card"><h3>Infrastructure</h3><p class="muted">Servers, services, storage, backups.</p></div>
+          <div class="card"><h3>Security</h3><p class="muted">Suspicious activity, failed logins, lost devices.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Escalation -->
+    <section class="section">
+      <div class="wrap">
+        <h2>Escalation policy</h2>
+        <p class="section-intro">Escalate when the next person is better placed to fix it, or when waiting makes things worse. Record the reason in the ticket.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Escalate when</th><th>To</th></tr></thead>
+            <tbody>
+              <tr><td>A High priority ticket has no progress after 30 minutes.</td><td>Senior technician / IT lead</td></tr>
+              <tr><td>The issue needs access or rights the technician does not have.</td><td>Administrator of that system</td></tr>
+              <tr><td>Logs suggest a possible compromise, such as a successful login after many failures.</td><td>Security contact, immediately</td></tr>
+              <tr><td>The cause is outside company control, such as the internet provider.</td><td>External provider, with evidence</td></tr>
+              <tr><td>The employee reports data loss or a lost device.</td><td>Management and IT lead</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice warn">
+          Never share passwords with IT staff by chat or email. Technicians will not ask for your password.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>&copy; <span id="footer-year">2026</span> Northstar Solutions. Fictional organization for a portfolio lab project.</span>
+      <span>Served by NS-SRV01 &middot; <span id="footer-host" class="mono"></span></span>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Server status | Northstar Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="code.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">NS</span>
+        <span>Northstar Solutions<small>Internal IT Portal</small></span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="status.html">Server status</a>
+        <a href="helpdesk.html">Help desk</a>
+        <a href="network.html">Network</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-head">
+      <div class="wrap">
+        <p class="eyebrow">Monitoring</p>
+        <h1>Server status</h1>
+        <p>
+          State of the main services on NS-SRV01. The data comes from <code>status.json</code>,
+          which the server regenerates every few minutes.
+        </p>
+        <div class="btn-row">
+          <button class="btn btn-secondary" id="refresh-status" type="button">Refresh now</button>
+        </div>
+        <p id="status-error" class="notice warn" hidden></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>System</h2>
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="table-wrap">
+              <table>
+                <tbody>
+                  <tr><th scope="row">Hostname</th><td class="mono" id="sys-host">-</td></tr>
+                  <tr><th scope="row">Operating system</th><td id="sys-os">-</td></tr>
+                  <tr><th scope="row">Uptime</th><td id="sys-uptime">-</td></tr>
+                  <tr><th scope="row">Response time</th><td class="mono" id="sys-latency">-</td></tr>
+                  <tr><th scope="row">Data generated</th><td id="sys-generated">-</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Disk usage (/)</h3>
+            <div class="bar" id="disk-bar" role="img" aria-label="Disk usage"><span></span></div>
+            <p class="muted" id="disk-text" style="margin-top:.6rem">-</p>
+            <p class="muted" style="font-size:.85rem">Bar turns amber above 75% and red above 90%. This matches the low-disk-space scenario (NS-002).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Services</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Service</th><th>systemd unit</th><th>State</th><th>Detail</th></tr>
+            </thead>
+            <tbody id="services-body">
+              <tr><td colspan="4" class="muted">Loading&hellip;</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice">
+          This page shows what the server reported at the time shown above. For live detail, an administrator can run
+          <code>systemctl status nginx</code> and <code>sudo ufw status</code> on NS-SRV01.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>&copy; <span id="footer-year">2026</span> Northstar Solutions. Fictional organization for a portfolio lab project.</span>
+      <span>Served by NS-SRV01 &middot; <span id="footer-host" class="mono"></span></span>
+    </div>
+  </footer>
+
+</body>
+</html>

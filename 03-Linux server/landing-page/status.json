@@ -1,0 +1,12 @@
+{
+  "generated": "2026-11-18T20:30:00-03:00",
+  "hostname": "NS-SRV01",
+  "os": "Ubuntu Server 24.04 LTS",
+  "uptime": "up 2 hours, 14 minutes",
+  "disk": { "total_gb": 30, "used_gb": 7, "percent": 23 },
+  "services": [
+    { "name": "Web server", "unit": "nginx.service", "state": "active", "detail": "Serving the internal portal on port 80" },
+    { "name": "Remote administration", "unit": "ssh.service", "state": "active", "detail": "Key-based login, port 22" },
+    { "name": "Firewall", "unit": "ufw.service", "state": "active", "detail": "Default deny incoming; SSH and HTTP allowed from the host-only subnet" }
+  ]
+}

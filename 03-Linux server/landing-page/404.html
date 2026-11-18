@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found | Northstar Solutions</title>
+  <!-- Absolute paths: Nginx serves this page for any missing URL, at any depth. -->
+  <link rel="stylesheet" href="/style.css">
+  <script src="/code.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/index.html">
+        <span class="brand-mark">NS</span>
+        <span>Northstar Solutions<small>Internal IT Portal</small></span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="/index.html">Home</a>
+        <a href="/status.html">Server status</a>
+        <a href="/helpdesk.html">Help desk</a>
+        <a href="/network.html">Network</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <p class="eyebrow">Error 404</p>
+        <h1>Page not found</h1>
+        <p>
+          The web server is working, but this address does not exist. Check the spelling,
+          or go back to the portal. If a link on this site brought you here, please report it.
+        </p>
+        <div class="btn-row">
+          <a class="btn" href="/index.html">Back to home</a>
+          <a class="btn btn-secondary" href="/helpdesk.html">Report a problem</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>&copy; <span id="footer-year">2026</span> Northstar Solutions. Fictional organization for a portfolio lab project.</span>
+      <span>Served by NS-SRV01 &middot; <span id="footer-host" class="mono"></span></span>
+    </div>
+  </footer>
+
+</body>
+</html>
