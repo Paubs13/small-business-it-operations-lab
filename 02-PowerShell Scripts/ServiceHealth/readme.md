@@ -1,3 +1,9 @@
+*Purpose*: \
+Reports the status and startup type of Windows services and separates them into two cases:
+- Automatic but stopped (AutoButStopped): the service is configured to start automatically but isn't running. This is the problematic one.
+- Normally stopped (NormallyStopped): the service is Manual or Disabled and stopped. This is normal.
+
+*Process*: \
 I used the same process as SystemInfo, so i just reviewed and tested the AI-generated code. I added a few of try-catchs to make it more consistent on edge cases, as well as adding a function that checks that it's running on Windows. It's basically the same logic as SystemInfo too. Gets the services and their state, and based on which functions have been executed it displays them and stores them in a CSV.
 
 Also this code has a couple of flags that can be used when executed on the Shell.
