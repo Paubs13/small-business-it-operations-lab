@@ -1,4 +1,4 @@
-Again, pretty easy. The process was: \
+Again, pretty easy. The process was: 
 1. Good practice in Linux, specially in stable releases, to: sudo apt update && sudo apt upgrade
 2. Then, just to be certain: sudo apt update && sudo apt install ufw -y
 3. Finally, the following steps are the setup itself of the rules: sudo ufw default deny incoming
