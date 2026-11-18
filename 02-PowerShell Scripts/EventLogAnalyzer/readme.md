@@ -1,7 +1,7 @@
-*Purpose*:
+*Purpose*: \
 Finds Critical and Error events in Windows Event Logs within a time range and returns them as structured PowerShell objects (event ID, timestamp, source, message and more).
 
-*Process*:
+*Process*: \
 I did the same process than with ServiceHealth. I used it as a model and the AI automatically added the functions i had to manually add last time, so now i just had to review it and test it.
 
 *Limitations:*
