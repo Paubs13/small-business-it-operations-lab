@@ -36,7 +36,12 @@
         </p>
         <div class="btn-row">
           <button class="btn btn-secondary" id="refresh-status" type="button">Refresh now</button>
+          <span class="muted" id="last-checked" style="align-self:center"></span>
         </div>
+        <p class="muted" style="font-size:.85rem; margin-top:.75rem">
+          This page re-checks automatically every 60 seconds. The numbers only change when the server
+          regenerates <code>status.json</code> (every 5 minutes), so compare "Data generated" below.
+        </p>
         <p id="status-error" class="notice warn" hidden></p>
       </div>
     </section>

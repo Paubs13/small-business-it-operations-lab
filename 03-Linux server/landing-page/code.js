@@ -158,20 +158,40 @@ async function initStatus() {
   const needsStatus = $("#overall-status") || $("#services-body");
   if (!needsStatus) return;
 
+  // Give visible feedback on the status page's refresh button (if present)
+  const refresh = $("#refresh-status");
+  if (refresh) {
+    refresh.disabled = true;
+    refresh.textContent = "Refreshing...";
+  }
+
   try {
     const { data, latencyMs } = await loadStatus();
+    const errorBox = $("#status-error");
+    if (errorBox) errorBox.hidden = true;   // clear an old error after a good load
     renderStatusStrip(data, latencyMs);
     renderStatusPage(data, latencyMs);
   } catch (error) {
     showStatusError(error);
   }
 
-  // Status page: manual refresh button
-  const refresh = $("#refresh-status");
-  if (refresh && !refresh.dataset.bound) {
-    refresh.dataset.bound = "1";
-    refresh.addEventListener("click", initStatus);
+  // Short pause so the "Refreshing..." state is actually visible
+  await new Promise((resolve) => setTimeout(resolve, 400));
+
+  if (refresh) {
+    refresh.disabled = false;
+    refresh.textContent = "Refresh now";
   }
+  // Time of the last check made by this browser (not the same as "Data generated")
+  setText($("#last-checked"), `Last checked: ${new Date().toLocaleTimeString()}`);
+}
+
+/** Status page: refresh button and automatic refresh every 60 seconds. */
+function initRefresh() {
+  const refresh = $("#refresh-status");
+  if (!refresh) return;
+  refresh.addEventListener("click", initStatus);
+  setInterval(initStatus, 60 * 1000);
 }
 
 
@@ -313,6 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
   highlightCurrentPage();
   fillFooter();
   initStatus();
+  initRefresh();
   initTicketHelper();
   initCopyButtons();
 });
