@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 # gen-status.sh - writes status.json for the Northstar portal.
 # Run on NS-SRV01. Usage: sudo ./gen-status.sh [output-path]
-# Default output: /var/www/northstar/status.json
+# Default output: /var/www/northstar/html/status.json (the Nginx web root)
 
 set -euo pipefail
 
-OUT="${1:-/var/www/northstar/status.json}"
+OUT="${1:-/var/www/northstar/html/status.json}"
+
+# Fail loudly if the folder is wrong, instead of writing the file somewhere Nginx never looks
+if [ ! -d "$(dirname "$OUT")" ]; then
+  echo "ERROR: output folder does not exist: $(dirname "$OUT")" >&2
+  exit 1
+fi
+
 TMP="$(mktemp)"
 
 # Prints the systemd state of a unit: active, inactive, failed...

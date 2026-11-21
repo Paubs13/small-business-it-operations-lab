@@ -1,0 +1,3 @@
+# Keep Unix line endings for shell scripts, even when committed from Windows.
+# CRLF line endings break scripts on Linux ("bad interpreter" errors).
+*.sh text eol=lf
