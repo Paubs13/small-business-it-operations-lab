@@ -80,15 +80,30 @@ async function loadStatus() {
 }
 
 /** Home page: small summary strip. */
+/** How many minutes old status.json is. Returns NaN if the date is invalid. */
+const STALE_AFTER_MINUTES = 10;   // cron runs every 5 min, so 10 means it missed a run
+
+function dataAgeMinutes(data) {
+  return (Date.now() - new Date(data.generated).getTime()) / 60000;
+}
+
+function isStale(data) {
+  const age = dataAgeMinutes(data);
+  return isNaN(age) || age > STALE_AFTER_MINUTES;
+}
+
 function renderStatusStrip(data, latencyMs) {
   const allUp = data.services.every((s) => stateClass(s.state) === "ok");
+  const stale = isStale(data);
 
   const overall = $("#overall-status");
   if (overall) {
     overall.innerHTML = "";
     const dot = document.createElement("span");
-    dot.className = `dot ${allUp ? "ok" : "warn"}`;
-    overall.append(dot, allUp ? "All services running" : "Attention needed");
+    dot.className = `dot ${stale ? "warn" : allUp ? "ok" : "warn"}`;
+    const text = stale ? "Data is out of date"
+                       : allUp ? "All services running" : "Attention needed";
+    overall.append(dot, text);
   }
   setText($("#strip-host"), data.hostname);
   setText($("#strip-latency"), `${latencyMs} ms`);
@@ -97,6 +112,19 @@ function renderStatusStrip(data, latencyMs) {
 
 /** Status page: full detail (services table, disk bar, system facts). */
 function renderStatusPage(data, latencyMs) {
+  // Warn if the server has stopped regenerating status.json
+  const staleBox = $("#stale-warning");
+  if (staleBox) {
+    const stale = isStale(data);
+    staleBox.hidden = !stale;
+    if (stale) {
+      const age = Math.round(dataAgeMinutes(data));
+      staleBox.textContent = isNaN(age)
+        ? "The timestamp in status.json is not valid. The status shown below may be wrong."
+        : `status.json was last generated ${age} minutes ago. The status shown below may be out of date. Check that gen-status.sh is running on the server.`;
+    }
+  }
+
   // System facts
   setText($("#sys-host"), data.hostname);
   setText($("#sys-os"), data.os);
