@@ -12,10 +12,10 @@
   session.cookie_httponly = On \
   date.timezone = America/Argentina/Cordoba
 5. Restart: sudo systemctl restart php8.3-fpm
-6. Create MariaDB database:
+6. Create MariaDB database: \
   sudo mysql_secure_installation \
   sudo mysql -u root -p
-7. Run the following SQL commands, replacing the password:
+7. Run the following SQL commands, replacing the password: \
   CREATE DATABASE glpidb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; \
   CREATE USER 'glpiuser'@'localhost' IDENTIFIED BY 'YourStrongPassword'; \
   GRANT ALL PRIVILEGES ON glpidb.* TO 'glpiuser'@'localhost'; \
@@ -27,13 +27,13 @@
   PATH_URL="glpi-project/glpi/releases/download/11.0.8/glpi-11.0.8.tgz" \
   wget "https://${HOST}/${PATH_URL}" \
   sudo tar -xvzf glpi-11.0.8.tgz -C /var/www/
-9. Set the right permissions: \ 
+9. Set the right permissions: 
   sudo chown -R www-data:www-data /var/www/glpi \
   sudo chmod -R 755 /var/www/glpi
 10. Add GLPI to our existing nginx adding the following lines to "/etc/nginx/sites-enabled/northstar" : \
   location ^~ /glpi { \
       alias /var/www/glpi/public; \
-      index index.php; \
+      index index.php;
   
       try_files $uri $uri/ @glpi_rewrite;
   
@@ -44,7 +44,7 @@
           fastcgi_param SCRIPT_FILENAME /var/www/glpi/public/index.php; \
           fastcgi_param SCRIPT_NAME /glpi/index.php; \
       } \
-  } \
+  } 
   
   location @glpi_rewrite { \
       rewrite ^/glpi/(.*)$ /glpi/index.php/$1 last; \
