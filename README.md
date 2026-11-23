@@ -69,7 +69,7 @@ Configuration and administration of the Ubuntu Server environment, including:
 - Log inspection and basic security monitoring.
 - Linux service and connectivity troubleshooting.
 
-* Further modifications of the NGINX page will be performed at a later stage. Now it's completely functional, but not quite there to my taste.
+*Further modifications of the NGINX page will be performed at a later stage. Now it's completely functional, but not quite there to my taste.
 
 ### 4. IT Service Desk Simulation --WIP--
 
